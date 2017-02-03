@@ -64,7 +64,7 @@ export default class CallList extends Component{
             )
         }
         return(
-            <h3>No Calls</h3>
+            <h3>No Calls Received</h3>
         )
     }
 }

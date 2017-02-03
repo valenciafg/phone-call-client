@@ -15,8 +15,9 @@ class App extends React.Component {
             <div>
                 <NavBar/>
                 <div className="container">
-                    <h2>Phone Calls</h2>
+                    <h2>Online Phone Calls</h2>
                     <CallList calls={this.props.calls}/>
+                    {this.props.children}
                 </div>
             </div>
         );
