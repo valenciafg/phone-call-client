@@ -19,8 +19,8 @@ config.plugins = config.plugins.concat([
 
 config.module.loaders = config.module.loaders.concat([
   {
-    test: /\.jsx?$/, 
-    loaders: [ 'react-hot', 'babel'], 
+    test: /\.jsx?$/,
+    loaders: [ 'react-hot', 'babel'],
     exclude: [nodeModulesPath]
   }
 ]);
@@ -33,5 +33,9 @@ config.devServer = {
   headers:{
       'Access-Control-Allow-Origin': '*'
   },
+  proxy: {
+      '/lastcalls': 'http://172.24.10.3:8080/lastcalls'
+  },
+  historyApiFallback: true,
 }
 module.exports = config;

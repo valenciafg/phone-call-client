@@ -1,9 +1,5 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-
-import NavBar from '../components/NavBar';
-import CallList from '../components/CallList';
-
+import React, {Component} from 'react'
+import NavBar from '../components/NavBar'
 // import 'semantic-ui-css/semantic.css'
 
 class App extends React.Component {
@@ -15,19 +11,11 @@ class App extends React.Component {
             <div>
                 <NavBar/>
                 <div className="container">
-                    <h2>Online Phone Calls</h2>
-                    <CallList calls={this.props.calls}/>
                     {this.props.children}
                 </div>
             </div>
-        );
+        )
     }
 }
 
-function mapStateToProps(state){
-    return {
-        calls: state.calls
-    }
-}
-
-export default connect(mapStateToProps,{})(App)
+export default App
