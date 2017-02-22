@@ -1,15 +1,24 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
+import CallsTable from './CallsTable'
 
 class ExtensionSearchResult extends Component{
     constructor(...args) {
         super(...args)
         this.options = {
             clearSearch: true,
-            defaultSortName: 'id',
-            defaultSortOrder: 'desc'
+            defaultSortName: 'callDateUnix',
+            defaultSortOrder: 'desc',
+            sizePerPageList: [
+                {text: '10', value: 10},
+                {text: '15', value: 15},
+                {text: '20', value: 20},
+                {text: '30', value: 30},
+                {text: '40', value: 40},
+                {text: '50', value: 50},
+            ],
+            sizePerPage: 15,
         }
     }
     createIndexedList(){
@@ -17,14 +26,15 @@ class ExtensionSearchResult extends Component{
         // console.log('mis llamadas a indexar',calls);
         return(
             calls.map((data,i)=>{
-                // console.log('mi dato',data)
                 // let duration = new Date(data.call.callDuration).getTime()
                 return({
                     id: i,
                     ext:data.call.ext,
                     dialedPhone: data.call.dialedPhone,
                     callTime: data.call.callTime,
-                    callDuration: data.call.callDuration
+                    callDuration: data.call.callDuration,
+                    callDate: data.call.callDate,
+                    callDateUnix: data.call.callDateUnix
                 })
             })
         )
@@ -34,19 +44,9 @@ class ExtensionSearchResult extends Component{
         if(calls !== undefined && calls.length > 0) {
             let indexedCalls = this.createIndexedList();
             return (
-            <BootstrapTable
-                data={ indexedCalls }
-                pagination
-                search={ true }
-                exportCSV={ true }
-                options={ this.options }
-            >
-                <TableHeaderColumn dataField='id' isKey>#</TableHeaderColumn>
-                <TableHeaderColumn dataField='ext'>Extension</TableHeaderColumn>
-                <TableHeaderColumn dataField='dialedPhone'>Called Number</TableHeaderColumn>
-                <TableHeaderColumn dataField='callTime'>Start Time</TableHeaderColumn>
-                <TableHeaderColumn dataField='callDuration'>Duration</TableHeaderColumn>
-            </BootstrapTable>
+                <div>
+                    <CallsTable calls={indexedCalls} options={this.options}/>
+                </div>
             )
         }
         return(

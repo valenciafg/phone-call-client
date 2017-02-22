@@ -27,7 +27,15 @@ export default class NavBar extends React.Component {
                                 <MenuItem eventKey={1.2}>Extensions</MenuItem>
                             </LinkContainer>
                             <MenuItem eventKey={1.3}>Rooms</MenuItem>
-                            <MenuItem eventKey={1.4}>Date</MenuItem>
+                            <LinkContainer to="date">
+                                <MenuItem eventKey={1.4}>Date</MenuItem>
+                            </LinkContainer>
+                        <MenuItem divider />
+                            <MenuItem disabled>Information</MenuItem>
+                        <MenuItem divider />
+                            <LinkContainer to="directory">
+                                <MenuItem eventKey={1.5}>Phone Directory</MenuItem>
+                            </LinkContainer>
                     </NavDropdown>
                 </Nav>
             </Navbar>

@@ -1,10 +1,12 @@
 import {
-    LAST_CALLS, NEW_CALL, PHONE_DIRECTORY
+    LAST_CALLS, NEW_CALL, PHONE_DIRECTORY,
+    CALLS_BY_EXT
 } from '../actions';
 
 const initialState = {
     calls: [],
-    phonedirectory: []
+    phonedirectory: [],
+    callsSearched: []
 };
 const calls = (state = initialState, action) => {
     // console.log('**state',state)
@@ -20,7 +22,8 @@ const calls = (state = initialState, action) => {
                         call: action.call
                     }
                 ],
-                phonedirectory: state.phonedirectory
+                phonedirectory: state.phonedirectory,
+                callsSearched: state.callsSearched
             });
         case LAST_CALLS:
             // console.log('action.payload:',action.payload)
@@ -29,8 +32,9 @@ const calls = (state = initialState, action) => {
                 phonedirectory: state.phonedirectory
             }))*/
             return Object.assign({},state,{
-                calls: action.calls,
-                phonedirectory: action.phonedirectory
+                calls: action.payload,
+                phonedirectory: state.phonedirectory,
+                callsSearched: state.callsSearched
             });
         case PHONE_DIRECTORY:
             /*console.log('PHONE_DIRECTORY estoy regresando',Object.assign({},state,{
@@ -39,7 +43,19 @@ const calls = (state = initialState, action) => {
             }))*/
             return Object.assign({},state,{
                 calls: state.calls,
-                phonedirectory: action.payload
+                phonedirectory: action.payload,
+                callsSearched: state.callsSearched
+            })
+        case CALLS_BY_EXT:
+            console.log('CALLS_BY_EXT',Object.assign({},state,{
+                calls: state.calls,
+                phonedirectory: state.phonedirectory,
+                callsSearched: action.payload,
+            }))
+            return Object.assign({},state,{
+                calls: state.calls,
+                phonedirectory: state.phonedirectory,
+                callsSearched: action.payload,
             })
         default:
             return state;

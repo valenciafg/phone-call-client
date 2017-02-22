@@ -22,6 +22,7 @@ class OnlineCalls extends React.Component {
     }
 }
 function mapStateToProps(state){
+    // console.log('mapStateToProps getLastCalls',state.calls)
     return {
         calls: state.calls
     }

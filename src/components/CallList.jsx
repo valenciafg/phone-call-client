@@ -1,66 +1,52 @@
 import React,{Component} from 'react'
-import { Table } from 'semantic-ui-react';
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import CallsTable from './layout/CallsTable'
 
 export default class CallList extends Component{
     constructor(...args){
         super(...args)
         this.options = {
             clearSearch: true,
-            defaultSortName: 'id',
-            defaultSortOrder: 'desc'
+            defaultSortName: 'callDateUnix',
+            defaultSortOrder: 'desc',
+            sizePerPageList: [
+                {text: '10', value: 10},
+                {text: '15', value: 15},
+                {text: '20', value: 20},
+                {text: '30', value: 30},
+                {text: '40', value: 40},
+                {text: '50', value: 50},
+            ],
+            sizePerPage: 15,
         }
-    }
-    createList(){
-        let calls = this.props.calls.calls
-        return(
-            calls.map((data)=> {
-            return (
-                <Table.Row>
-                    <Table.Cell>{data.call.ext}</Table.Cell>
-                    <Table.Cell>{data.call.dialedPhone}</Table.Cell>
-                    <Table.Cell>{data.call.callTime}</Table.Cell>
-                    <Table.Cell>{data.call.callDuration}</Table.Cell>
-                    <Table.Cell>{data.call.cost}</Table.Cell>
-                </Table.Row>
-            )
-        })
-        )
     }
     createIndexedList(){
         let calls = this.props.calls.calls;
-        // console.log('mis llamadas a indexar',calls);
+        // console.log('callllllls',calls)
         return(
             calls.map((data,i)=>{
                 // console.log('mi dato',data)
-                return({
+                let duration = new Date(data.call.callDuration).getTime()
+                let callData = {
                     id: i,
                     ext:data.call.ext,
                     dialedPhone: data.call.dialedPhone,
                     callTime: data.call.callTime,
-                    callDuration: data.call.callDuration
-                })
+                    callDuration: data.call.callDuration,
+                    callDate: data.call.callDate,
+                    callDateUnix: data.call.callDateUnix
+                }
+                return(callData)
             })
         )
     }
     render(){
         let calls = this.props.calls.calls;
-        if(calls.length > 0) {
+        if(calls !== undefined && calls.length > 0) {
             let indexedCalls = this.createIndexedList();
             return (
-            <BootstrapTable
-                data={ indexedCalls }
-                pagination
-                search={ true }
-                exportCSV={ true }
-                options={ this.options }
-            >
-                <TableHeaderColumn dataField='id' isKey>#</TableHeaderColumn>
-                <TableHeaderColumn dataField='ext'>Extension</TableHeaderColumn>
-                <TableHeaderColumn dataField='dialedPhone'>Called Number</TableHeaderColumn>
-                <TableHeaderColumn dataField='callTime'>Start Time</TableHeaderColumn>
-                <TableHeaderColumn dataField='callDuration'>Duration</TableHeaderColumn>
-            </BootstrapTable>
+                <div>
+                    <CallsTable calls={indexedCalls} options={this.options}/>
+                </div>
             )
         }
         return(

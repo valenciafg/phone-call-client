@@ -11,21 +11,30 @@ import reducer from './reducers';
 import App from './containers/App';
 
 let socket = io('<server ip>');
-let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
+    let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
+    //Middleware concat
+    let middlewares = [thunk,socketIoMiddleware];
 
-let middlewares = [thunk,socketIoMiddleware];
+    // const store = applyMiddleware(...middleWares)(createStore)(reducer);
+    const store = createStore(rootReducer,applyMiddleware(...middlewares));
 
+    // sincronizamos el browserHistory de React Router con el Store
+    const history = syncHistoryWithStore(browserHistory, store);
 
-// const store = applyMiddleware(...middleWares)(createStore)(reducer);
-const store = createStore(reducer,applyMiddleware(...middlewares));
-
-
-
-let app = document.getElementById('app')
-if(app != null ) {
-    ReactDOM.render(
-        <Provider store={store}>
-            <App />
-        </Provider>
-        , app);
-}
+    let app = document.getElementById('app')
+    if(app != null ) {
+        ReactDOM.render(
+            <Provider store={store}>
+                {/*le decimos al Router que use nuestro history sincronizado*/}
+                <Router history={history}>
+                {/*armamos las rutas de nuestra aplicación*/}
+                    <Route path="/" component={App}>
+                        <IndexRoute component={OnlineCalls} />
+                        <Route path="extension" component={ExtensionSearch} />
+                        <Route path="directory" component={PhoneDirectory} />
+                        <Route path="date" component={DateSearch} />
+                    </Route>
+                </Router>
+            </Provider>
+            , app);
+    }
