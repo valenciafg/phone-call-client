@@ -3,31 +3,26 @@ import { connect } from 'react-redux'
 import { Form, FormGroup, ControlLabel, FormControl, Button, Glyphicon} from 'react-bootstrap'
 import Moment from 'moment'
 import DatePicker from 'react-bootstrap-date-picker'
+import {searchCallsByDate} from '../../actions'
 
 class DateSearchForm extends React.Component {
     constructor(...args) {
         super(...args)
         this.state = {
-            start: Moment().format('DD-MM-YYYY'),
+            start: Moment().format(),
             end: ''
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleInputChange(type,value) {
-        // const target = event.target;
-        // const value = target.type === 'checkbox' ? target.checked : target.value;
-        // const name = target.name;
-        // console.log('handleInputChange',type)
-        // console.log('handleInputChange',value)
         this.setState({
-            [type]: Moment(value).format('DD-MM-YYYY')
+            [type]: Moment(value).format()
         });
     }
     handleSubmit(event) {
-        console.log('fue enviado el formulario',event)
-        console.log('voy a emviar',this.state)
         event.preventDefault();
+        this.props.searchCallsByDate(this.state.start,this.state.end)
     }
     render(){
         return(
@@ -38,7 +33,7 @@ class DateSearchForm extends React.Component {
                     <div className="form-group">
                         <DatePicker
                             id="start-date"
-                            value={new Date().toISOString()}
+                            value={this.state.start}
                             className="form-control"
                             dateFormat="DD-MM-YYYY"
                             onChange={(e)=>this.handleInputChange('start',e)}
@@ -52,6 +47,7 @@ class DateSearchForm extends React.Component {
                     <div className="form-group">
                         <DatePicker
                             id="end-date"
+                            value={this.state.end}
                             className="form-control"
                             dateFormat="DD-MM-YYYY"
                             onChange={(e)=>this.handleInputChange('end',e)}
@@ -66,5 +62,9 @@ class DateSearchForm extends React.Component {
         )
     }
 }
-
-export default DateSearchForm
+function mapStateToProps(state){
+    return {
+        callsSearched: state.calls.callsSearched
+    }
+}
+export default connect(mapStateToProps,{searchCallsByDate})(DateSearchForm)

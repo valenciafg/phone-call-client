@@ -1,6 +1,6 @@
 import {
     LAST_CALLS, NEW_CALL, PHONE_DIRECTORY,
-    CALLS_BY_EXT
+    CALLS_BY_EXT, CALLS_BY_DATE
 } from '../actions';
 
 const initialState = {
@@ -52,6 +52,12 @@ const calls = (state = initialState, action) => {
                 phonedirectory: state.phonedirectory,
                 callsSearched: action.payload,
             }))
+            return Object.assign({},state,{
+                calls: state.calls,
+                phonedirectory: state.phonedirectory,
+                callsSearched: action.payload,
+            })
+        case CALLS_BY_DATE:
             return Object.assign({},state,{
                 calls: state.calls,
                 phonedirectory: state.phonedirectory,

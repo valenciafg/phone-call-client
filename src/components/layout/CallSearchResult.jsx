@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import CallsTable from './CallsTable'
 
-class ExtensionSearchResult extends Component{
+class CallSearchResult extends Component{
     constructor(...args) {
         super(...args)
         this.options = {
@@ -60,4 +60,4 @@ function mapStateToProps(state){
         callsSearched: state.calls.callsSearched
     }
 }
-export default connect(mapStateToProps)(ExtensionSearchResult)
+export default connect(mapStateToProps)(CallSearchResult)

@@ -6,6 +6,7 @@ import Moment from 'moment'
 export const LAST_CALLS = 'LAST_CALLS'
 export const NEW_CALL = 'NEW_CALL'
 export const CALLS_BY_EXT = 'CALLS_BY_EXT'
+export const CALLS_BY_DATE = 'CALLS_BY_DATE'
 export const PHONE_DIRECTORY = 'PHONE_DIRECTORY'
 
 function createCallObject(data){
@@ -116,4 +117,60 @@ export function searchCallsByExtension(ext){
             console.log('Error',error)
         })
     }
+}
+
+export function searchCallsByDate(start, end){
+    return(dispatch,getState)=>{
+        if(end == '')
+            end = Moment().format()
+        if(start == '')
+            start = Moment().format()
+        let apiURL = (process.env.NODE_ENV == 'development'?'/scpost/':'http://172.24.10.3:8080/scpost/')
+        axios.post(apiURL,{
+            start: start,
+            end: end
+        })
+        .then((response)=>{
+            //console.log('respuesta',response.data)
+            let callsSearched = []
+            if(!response.data.error){
+                callsSearched = createCallObject(response.data.records)
+            }
+            //console.log('respuesta convertida',callsSearched)
+            dispatch({
+                type: CALLS_BY_DATE,
+                payload: callsSearched
+            })
+        })
+        .catch((error)=>{
+            console.log('Error',error)
+        })
+    }
+}
+
+export function editPhone(data){
+    let newData = {
+        extensionID: data.id,
+        phoneNumber: data.phone,
+        name: data.name,
+        area: data.area,
+        location: data.location
+    }
+    let apiURL = (process.env.NODE_ENV == 'development'?'/updatephone/':'http://172.24.10.3:8080/updatephone/')
+        axios.post(apiURL,newData)
+        .then((response)=>{
+            console.log('respuesta',response.data)
+            /*let callsSearched = []
+            if(!response.data.error){
+                callsSearched = createCallObject(response.data.records)
+            }
+            console.log('respuesta convertida',callsSearched)
+            dispatch({
+                type: CALLS_BY_DATE,
+                payload: callsSearched
+        })*/
+        })
+        .catch((error)=>{
+            console.log('Error',error)
+        })
 }

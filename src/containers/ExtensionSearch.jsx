@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 
 import ExtensionSearchForm from '../components/layout/ExtensionSearchForm'
-import ExtensionSearchResult from '../components/layout/ExtensionSearchResult'
+import CallSearchResult from '../components/layout/CallSearchResult'
 import {getPhoneDirectory} from '../actions';
 
 class ExtensionSearch extends React.Component {
@@ -19,7 +19,7 @@ class ExtensionSearch extends React.Component {
             <div>
                 <h2>Search Calls By Extension</h2>
                 <ExtensionSearchForm phonedirectory={this.props.phonedirectory}/>
-                <ExtensionSearchResult/>
+                <CallSearchResult/>
             </div>
         )
     }

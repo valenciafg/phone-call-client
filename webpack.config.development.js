@@ -44,10 +44,11 @@ config.devServer = {
     proxy: [
         {
             context: [
-                // '**'
                 '/lastcalls/**',
                 '/phonedirectory/**',
-                '/call/**'
+                '/call/**',
+                '/scpost/**',
+                '/updatephone/**'
             ],
             target: 'http://172.24.10.3:8080',
             secure: false
