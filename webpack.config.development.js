@@ -47,6 +47,7 @@ config.devServer = {
                 '/lastcalls/**',
                 '/phonedirectory/**',
                 '/call/**',
+                '/calls/**',
                 '/scpost/**',
                 '/updatephone/**'
             ],

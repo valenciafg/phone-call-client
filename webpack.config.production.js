@@ -2,7 +2,6 @@ var webpack = require('webpack');
 const path = require('path');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 var config = require('./webpack.config.base.js');
 
 config.plugins = config.plugins.concat([

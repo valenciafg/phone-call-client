@@ -23,6 +23,7 @@ module.exports = {
     output: {
         path: buildPath, // Path of output file
         filename: 'app.js', // Name of output file
+        publicPath: '/'
     },
     externals: ['bindings','serialport'],
     module:{
@@ -39,6 +40,10 @@ module.exports = {
                     fallbackLoader: 'style-loader',
                     loader: 'css-loader'
                 })*/
+            },
+            {
+                test: /\.scss$/,
+                loader: 'style-loader!css-loader!sass-loader'
             },
             {
                 test: /\.png$/,

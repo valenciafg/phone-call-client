@@ -7,6 +7,7 @@ export const LAST_CALLS = 'LAST_CALLS'
 export const NEW_CALL = 'NEW_CALL'
 export const CALLS_BY_EXT = 'CALLS_BY_EXT'
 export const CALLS_BY_DATE = 'CALLS_BY_DATE'
+export const CALLS_BY_NAME = 'CALLS_BY_NAME'
 export const PHONE_DIRECTORY = 'PHONE_DIRECTORY'
 
 function createCallObject(data){
@@ -110,6 +111,27 @@ export function searchCallsByExtension(ext){
             // console.log('respuesta convertida',callsSearched)
             dispatch({
                 type: CALLS_BY_EXT,
+                payload: callsSearched
+            })
+        })
+        .catch((error)=>{
+            console.log('Error',error)
+        })
+    }
+}
+
+export function searchCallsByName(name){
+    return(dispatch,getState)=>{
+        let apiURL = (process.env.NODE_ENV == 'development'?'/calls/':'http://172.24.10.3:8080/calls/')
+        axios.post(apiURL,{
+            name: name
+        })
+        .then((response)=>{
+            console.log('mi data es',response.data)
+            let callsSearched = createCallObject(response.data.records)
+            // console.log('respuesta convertida',callsSearched)
+            dispatch({
+                type: CALLS_BY_NAME,
                 payload: callsSearched
             })
         })
