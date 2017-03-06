@@ -12,8 +12,9 @@ import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-rou
 import routes from './src/routes'
 import reducer from './src/reducers'
 var cors = require('cors');
-var proxy = require('express-http-proxy');
-var httpProxy = require('http-proxy');
+var proxy = require('http-proxy-middleware');
+//var proxy = require('express-http-proxy');
+//var httpProxy = require('http-proxy');
 /* SocketIO connection */
 let socket = io('http://172.24.10.3:8080/');
 let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
@@ -31,11 +32,17 @@ app.use(function (req, res, next) {
 });
 
 const crosAPIUrl = 'http://172.24.10.3:8080'
-const crosProxy = httpProxy.createProxyServer({
-  target: crosAPIUrl
-});
-//app.use(cors());
-//app.use('/lastcalls', proxy('http://172.24.10.3:8080'));
+var options = {
+        target: crosAPIUrl, // target host 
+        changeOrigin: true,               // needed for virtual hosted sites        
+    };
+var newProxy = proxy(options);
+app.use('/lastcalls', newProxy);
+app.use('/phonedirectory', newProxy);
+app.use('/call', newProxy);
+app.use('/calls', newProxy);
+app.use('/scpost', newProxy);
+app.use('/updatephone', newProxy);
 
 /* configure store */
 function configureStore(memoryHistory, initialState){
@@ -55,15 +62,15 @@ const HTML = ({ content, store }) => (
       <title>Hotel Plaza Meru | Phone Register Client</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css"/>
-      <link rel='stylesheet' type='text/css' href='/public/style.css' />
+      <link rel='stylesheet' type='text/css' href='public/style.css' />
     </head>
     <body>
       <div id='app' dangerouslySetInnerHTML={{ __html: content }}/>
       <script dangerouslySetInnerHTML={{ __html: `window.__initialState__=${serialize(store.getState())};` }}/>
       <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-      <script src='/public/vendor.js' />
-      <script src='/public/bundle.js' />
+      <script src='public/vendor.js' />
+      <script src='public/bundle.js' />
     </body>
   </html>
 )
@@ -89,25 +96,6 @@ app.use(function (req, res) {
       res.send('<!doctype html>\n' + renderToString(<HTML content={content} store={store}/>))
     }
   })
-})
-
-app.use('/lastcalls', (req, res) => {
-  crosProxy.web(req, res, {target: crosAPIUrl});
-})
-app.use('/phonedirectory', (req, res) => {
-  crosProxy.web(req, res, {target: crosAPIUrl});
-})
-app.use('/call', (req, res) => {
-  crosProxy.web(req, res, {target: crosAPIUrl});
-})
-app.use('/calls', (req, res) => {
-  crosProxy.web(req, res, {target: crosAPIUrl});
-})
-app.use('/scpost', (req, res) => {
-  crosProxy.web(req, res, {target: crosAPIUrl});
-})
-app.use('/updatephone', (req, res) => {
-  crosProxy.web(req, res, {target: crosAPIUrl});
 })
 app.listen(8081, function (err) {
     if (err) { console.log(err); return; }

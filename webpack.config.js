@@ -58,8 +58,7 @@ function loaders(){
             },
             {
                 test: /\.css$/i,
-                loader: ExtractTextPlugin.extract('style',
-                    `css?modules&localIdentName=[name]_[local]__[hash:base64:5]!postcss`),
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
             }
         ])
     }else{
