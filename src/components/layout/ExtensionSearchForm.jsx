@@ -35,7 +35,7 @@ class ExtensionSearchForm extends React.Component {
                 })
             )
         }else{
-            return([])
+            return([{id:1,text:'Empty'}])
         }
     }
     cbSelect(e){

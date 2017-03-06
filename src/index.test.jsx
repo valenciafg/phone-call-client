@@ -22,7 +22,7 @@ import rootReducer from './reducers';
 /* Routes */
 import routes from './routes'
 
-let socket = io('<server ip>');
+let socket = io('<Server Host>');
 let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 //Middleware concat
 let middlewares = [thunk,socketIoMiddleware];

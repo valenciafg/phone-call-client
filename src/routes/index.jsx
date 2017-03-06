@@ -1,6 +1,6 @@
 import React from 'react'
 import { IndexRoute, Route, Link, IndexRedirect, Redirect } from 'react-router'
-//Import component containers
+/* Import component containers */
 import App from '../containers/App'
 import ExtensionSearch from '../containers/ExtensionSearch'
 import OnlineCalls from '../containers/OnlineCalls'

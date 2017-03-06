@@ -94,7 +94,7 @@ function entry(){
     }
     return [
         path.join(__dirname, '/src/index.jsx'),
-        'webpack-dev-server/client?http://localhost:8080',
+        'webpack-dev-server/client?http://localhost:8081',
         'webpack/hot/only-dev-server'
     ]
 }
