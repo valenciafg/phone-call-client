@@ -9,7 +9,7 @@ export const CALLS_BY_EXT = 'CALLS_BY_EXT'
 export const CALLS_BY_DATE = 'CALLS_BY_DATE'
 export const CALLS_BY_NAME = 'CALLS_BY_NAME'
 export const PHONE_DIRECTORY = 'PHONE_DIRECTORY'
-
+export const MAIN_HOST = 'http://172.24.10.3:8081/'
 function createCallObject(data){
     let calls = data.map((info)=>{
         // console.log('info dentro de createCallObject',info)
@@ -63,7 +63,7 @@ export function getCalls(){
 export function getLastCalls(){
     return(dispatch,getState)=>{
         // let original_state = getState()        
-        let apiURL = (process.env.NODE_ENV == 'development'?'/lastcalls/':'http://localhost:8081/lastcalls/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/lastcalls/':MAIN_HOST+'lastcalls/')
         //console.log('mi api url es ',apiURL)
         axios.get(apiURL)
         .then((response)=>{
@@ -84,7 +84,7 @@ export function getLastCalls(){
 export function getPhoneDirectory(){
     return(dispatch,getState)=>{
         let original_state = getState()
-        let apiURL = (process.env.NODE_ENV == 'development'?'/phonedirectory/':'http://localhost:8081/phonedirectory/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/phonedirectory/':MAIN_HOST+'phonedirectory/')
         //console.log('entro por aqui ',apiURL)
         axios.get(apiURL)
         .then((response)=>{
@@ -103,7 +103,7 @@ export function getPhoneDirectory(){
 export function searchCallsByExtension(ext){
     // console.log('asdasdasd',ext)
     return(dispatch,getState)=>{
-        let apiURL = (process.env.NODE_ENV == 'development'?'/call/':'http://localhost:8081/call/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/call/':MAIN_HOST+'/call/')
         axios.post(apiURL,{
             ext: ext
         })
@@ -122,7 +122,7 @@ export function searchCallsByExtension(ext){
 
 export function searchCallsByName(name){
     return(dispatch,getState)=>{
-        let apiURL = (process.env.NODE_ENV == 'development'?'/calls/':'http://localhost:8081/calls/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/calls/':MAIN_HOST+'calls/')
         axios.post(apiURL,{
             name: name
         })
@@ -147,7 +147,7 @@ export function searchCallsByDate(start, end){
             end = Moment().format()
         if(start == '')
             start = Moment().format()
-        let apiURL = (process.env.NODE_ENV == 'development'?'/scpost/':'http://localhost:8081/scpost/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/scpost/':MAIN_HOST+'scpost/')
         axios.post(apiURL,{
             start: start,
             end: end
@@ -178,7 +178,7 @@ export function editPhone(data){
         area: data.area,
         location: data.location
     }
-    let apiURL = (process.env.NODE_ENV == 'development'?'/updatephone/':'http://localhost:8081/updatephone/')
+    let apiURL = (process.env.NODE_ENV == 'development'?'/updatephone/':MAIN_HOST+'updatephone/')
         axios.post(apiURL,newData)
         .then((response)=>{
             console.log('respuesta',response.data)
