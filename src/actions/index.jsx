@@ -62,8 +62,9 @@ export function getCalls(){
 
 export function getLastCalls(){
     return(dispatch,getState)=>{
-        // let original_state = getState()
-        let apiURL = '/lastcalls/' //(process.env.NODE_ENV == 'development'?'/lastcalls/':'http://172.24.10.3:8080/lastcalls/')
+        // let original_state = getState()        
+        let apiURL = (process.env.NODE_ENV == 'development'?'/lastcalls/':'http://localhost:8081/lastcalls/')
+        //console.log('mi api url es ',apiURL)
         axios.get(apiURL)
         .then((response)=>{
             // console.log('ultimas llamadas',response.data)
@@ -83,11 +84,11 @@ export function getLastCalls(){
 export function getPhoneDirectory(){
     return(dispatch,getState)=>{
         let original_state = getState()
-        let apiURL = '/phonedirectory/'//(process.env.NODE_ENV == 'development'?'/phonedirectory/':'http://172.24.10.3:8080/phonedirectory/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/phonedirectory/':'http://localhost:8081/phonedirectory/')
+        //console.log('entro por aqui ',apiURL)
         axios.get(apiURL)
         .then((response)=>{
             let phonedirectory = createPhoneDirectoryObject(response.data)
-            // console.log('phonedirectory desde action',phonedirectory)
             dispatch({
                 type: PHONE_DIRECTORY,
                 payload: phonedirectory
@@ -102,13 +103,12 @@ export function getPhoneDirectory(){
 export function searchCallsByExtension(ext){
     // console.log('asdasdasd',ext)
     return(dispatch,getState)=>{
-        let apiURL = '/call/'//(process.env.NODE_ENV == 'development'?'/call/'+ext:'http://172.24.10.3:8080/call/'+ext)
-        // console.log('mi apiURL es',apiURL)
-        axios.get(apiURL)
+        let apiURL = (process.env.NODE_ENV == 'development'?'/call/':'http://localhost:8081/call/')
+        axios.post(apiURL,{
+            ext: ext
+        })
         .then((response)=>{
-            // console.log('respuesta',response.data)
             let callsSearched = createCallObject(response.data)
-            // console.log('respuesta convertida',callsSearched)
             dispatch({
                 type: CALLS_BY_EXT,
                 payload: callsSearched
@@ -122,7 +122,7 @@ export function searchCallsByExtension(ext){
 
 export function searchCallsByName(name){
     return(dispatch,getState)=>{
-        let apiURL = '/calls/'//(process.env.NODE_ENV == 'development'?'/calls/':'http://172.24.10.3:8080/calls/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/calls/':'http://localhost:8081/calls/')
         axios.post(apiURL,{
             name: name
         })
@@ -147,7 +147,7 @@ export function searchCallsByDate(start, end){
             end = Moment().format()
         if(start == '')
             start = Moment().format()
-        let apiURL = '/scpost/'//(process.env.NODE_ENV == 'development'?'/scpost/':'http://172.24.10.3:8080/scpost/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/scpost/':'http://localhost:8081/scpost/')
         axios.post(apiURL,{
             start: start,
             end: end
@@ -178,7 +178,7 @@ export function editPhone(data){
         area: data.area,
         location: data.location
     }
-    let apiURL = '/updatephone/'//(process.env.NODE_ENV == 'development'?'/updatephone/':'http://172.24.10.3:8080/updatephone/')
+    let apiURL = (process.env.NODE_ENV == 'development'?'/updatephone/':'http://localhost:8081/updatephone/')
         axios.post(apiURL,newData)
         .then((response)=>{
             console.log('respuesta',response.data)

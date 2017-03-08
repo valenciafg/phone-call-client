@@ -42,7 +42,7 @@ class ExtensionSearchForm extends React.Component {
         let data = e.params.data
         let phoneID = data.id
         let phoneName = data.text
-        // console.log('Voy a buscar el id ',phoneID,' con el nombre ',phoneName)
+        console.log('Voy a buscar el id ',phoneID,' con el nombre ',phoneName)
         this.props.searchCallsByExtension(phoneName)
     }
     render(){

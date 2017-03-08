@@ -5,7 +5,7 @@
   "main": "app/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --content-base",
     "start": "cross-env NODE_ENV=prod babel-node server.js",
     "build": "cross-env NODE_ENV=production webpack --progress --colors"
   },
