@@ -103,7 +103,7 @@ export function getPhoneDirectory(){
 export function searchCallsByExtension(ext){
     // console.log('asdasdasd',ext)
     return(dispatch,getState)=>{
-        let apiURL = (process.env.NODE_ENV == 'development'?'/call/':MAIN_HOST+'/call/')
+        let apiURL = (process.env.NODE_ENV == 'development'?'/call/':MAIN_HOST+'call/')
         axios.post(apiURL,{
             ext: ext
         })
