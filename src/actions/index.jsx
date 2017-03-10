@@ -13,8 +13,8 @@ export const MAIN_HOST = 'http://172.24.10.3:8081/'
 function createCallObject(data){
     let calls = data.map((info)=>{
         // console.log('info dentro de createCallObject',info)
-        let callTime = Moment(info.PhoneCallStartTime).format('hh:mm:ss A')
-        let callDuration = Moment(info.PhoneCallDuration).format('mm:ss.SS')
+        let callTime = Moment(info.PhoneCallStartTime).format('HH:mm:ss')
+        let callDuration = Moment(info.PhoneCallDuration).format('mm:ss:SS')
         let CallDate = Moment(info.CallDate).format('DD-MM-YYYY')
         let CallDateUnix = Moment(info.CallDate).unix()
         return {

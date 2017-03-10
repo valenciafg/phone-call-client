@@ -36,6 +36,7 @@ class DateSearchForm extends React.Component {
                             value={this.state.start}
                             className="form-control"
                             dateFormat="DD-MM-YYYY"
+                            showClearButton={false}
                             onChange={(e)=>this.handleInputChange('start',e)}
                         />
                     </div>
@@ -50,6 +51,7 @@ class DateSearchForm extends React.Component {
                             value={this.state.end}
                             className="form-control"
                             dateFormat="DD-MM-YYYY"
+                            showClearButton={false}
                             onChange={(e)=>this.handleInputChange('end',e)}
                         />
                     </div>

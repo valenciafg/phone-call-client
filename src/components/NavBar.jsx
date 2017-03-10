@@ -12,10 +12,10 @@ export default class NavBar extends React.Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">Hotel Plaza Merú</a>
+                        <img src="public/hotel_logof.png" alt="Hotel Plaza Merú" style={{width: '100%', height:'100%'}}/>
                     </Navbar.Brand>
                 </Navbar.Header>
-                <Nav pullRight>
+                <Nav pullRight style={{paddingTop:20}}>
                     <NavDropdown eventKey={1} title="Calls" id="basic-nav-dropdown">
                         <LinkContainer to={{pathname: '/'}}>
                             <MenuItem eventKey={1.1}>Summary</MenuItem>
