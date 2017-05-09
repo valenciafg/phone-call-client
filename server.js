@@ -34,7 +34,7 @@ app.use(function (req, res, next) {
 const crosAPIUrl = 'http://172.24.10.3:8080'
 var options = {
         target: crosAPIUrl, // target host 
-        changeOrigin: true,               // needed for virtual hosted sites        
+        changeOrigin: true, // needed for virtual hosted sites        
     };
 var newProxy = proxy(options);
 app.use('/lastcalls', newProxy);

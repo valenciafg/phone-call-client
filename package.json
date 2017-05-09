@@ -46,6 +46,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "activedirectory": "^0.7.2",
     "axios": "^0.15.3",
     "babel-register": "^6.23.0",
     "bootstrap": "^3.3.7",

@@ -174,6 +174,6 @@ module.exports = {
   devServer: devServer(),
   resolve: {
     extensions: ['', '.js', '.jsx'],
-  },  
+  },
   plugins: plugins()
 }

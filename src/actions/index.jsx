@@ -9,7 +9,7 @@ export const CALLS_BY_EXT = 'CALLS_BY_EXT'
 export const CALLS_BY_DATE = 'CALLS_BY_DATE'
 export const CALLS_BY_NAME = 'CALLS_BY_NAME'
 export const PHONE_DIRECTORY = 'PHONE_DIRECTORY'
-export const MAIN_HOST = 'http://172.24.10.3:8081/'
+export const MAIN_HOST = (process.env.NODE_ENV == 'development'?'http://localhost:8081/':'http://172.24.10.3:8081/')
 function createCallObject(data){
     let calls = data.map((info)=>{
         // console.log('info dentro de createCallObject',info)
