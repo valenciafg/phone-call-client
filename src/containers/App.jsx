@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import NavBar from '../components/NavBar'
-// import 'semantic-ui-css/semantic.css'
 
 class App extends React.Component {
     constructor(...args) {

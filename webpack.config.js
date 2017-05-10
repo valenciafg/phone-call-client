@@ -150,7 +150,8 @@ function devServer(){
                     '/call/**',
                     '/calls/**',
                     '/scpost/**',
-                    '/updatephone/**'
+                    '/updatephone/**',
+                    '/authuser/**'
                 ],
                 target: 'http://172.24.10.3:8080',
                 secure: false
