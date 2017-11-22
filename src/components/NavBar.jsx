@@ -46,10 +46,13 @@ class NavBar extends React.Component {
                         <LinkContainer to={{pathname: '/directory'}}>
                             <MenuItem eventKey={1.5}>Phone Directory</MenuItem>
                         </LinkContainer>
+                        <LinkContainer to={{pathname: '/extdirectory'}}>
+                            <MenuItem eventKey={1.6}>External Phone Directory</MenuItem>
+                        </LinkContainer>
                         <MenuItem divider />
                             <MenuItem disabled>Authentication</MenuItem>
                         <MenuItem divider />
-                        <MenuItem eventKey={1.6} onClick={this.logout}>Logout</MenuItem>
+                        <MenuItem eventKey={1.7} onClick={this.logout}>Logout</MenuItem>
                     </NavDropdown>
                     :
                     <NavDropdown eventKey={1} title="Calls" id="basic-nav-dropdown">
@@ -59,11 +62,14 @@ class NavBar extends React.Component {
                         <LinkContainer to={{pathname: '/directory'}}>
                             <MenuItem eventKey={1.1}>Phone Directory</MenuItem>
                         </LinkContainer>
+                        <LinkContainer to={{pathname: '/extdirectory'}}>
+                            <MenuItem eventKey={1.2}>External Phone Directory</MenuItem>
+                        </LinkContainer>
                         <MenuItem divider />
                             <MenuItem disabled>Authentication</MenuItem>
                         <MenuItem divider />
                         <LinkContainer to={{pathname: '/login'}}>
-                            <MenuItem eventKey={1.2}>Login</MenuItem>
+                            <MenuItem eventKey={1.3}>Login</MenuItem>
                         </LinkContainer>                                               
                     </NavDropdown>
                     }

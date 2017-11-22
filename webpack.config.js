@@ -147,6 +147,7 @@ function devServer(){
                 context: [
                     '/lastcalls/**',
                     '/phonedirectory/**',
+                    '/externalphonedirectory/**',                    
                     '/call/**',
                     '/calls/**',
                     '/scpost/**',

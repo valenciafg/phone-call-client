@@ -85,7 +85,23 @@ export function getPhoneDirectory(){
     return(dispatch,getState)=>{
         let original_state = getState()
         let apiURL = (process.env.NODE_ENV == 'development'?'/phonedirectory/':MAIN_HOST+'phonedirectory/')
-        //console.log('entro por aqui ',apiURL)
+        axios.get(apiURL)
+        .then((response)=>{
+            let phonedirectory = createPhoneDirectoryObject(response.data)
+            dispatch({
+                type: PHONE_DIRECTORY,
+                payload: phonedirectory
+            })
+        })
+        .catch((error)=>{
+            console.log('Error',error)
+        })
+    }
+}
+export function getExternalPhoneDirectory(){
+    return(dispatch,getState)=>{
+        let original_state = getState()
+        let apiURL = (process.env.NODE_ENV == 'development'?'/externalphonedirectory/':MAIN_HOST+'externalphonedirectory/')
         axios.get(apiURL)
         .then((response)=>{
             let phonedirectory = createPhoneDirectoryObject(response.data)

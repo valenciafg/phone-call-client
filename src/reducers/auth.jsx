@@ -11,7 +11,7 @@ const initialState = {
 const auth = (state = initialState, action) => {
   switch(action.type){
     case LOGIN_USER:
-     console.log('mi payload es',action.payload);
+    //  console.log('mi payload es',action.payload);
       return Object.assign({},state,{
           loggedin: action.payload.loggedin,
           form: action.payload.form
