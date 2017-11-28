@@ -20,8 +20,7 @@ export default class CallList extends Component{
         }
     }
     createIndexedList(){
-        let calls = this.props.calls.calls;
-        // console.log('callllllls',calls)
+        let calls = this.props.calls.calls
         return(
             calls.map((data,i)=>{
                 // console.log('mi dato',data)
@@ -30,6 +29,7 @@ export default class CallList extends Component{
                     id: i,
                     ext:data.call.ext,
                     dialedPhone: data.call.dialedPhone,
+                    dialedPhoneName: data.call.dialedPhoneName,
                     callTime: data.call.callTime,
                     callDuration: data.call.callDuration,
                     callDate: data.call.callDate,

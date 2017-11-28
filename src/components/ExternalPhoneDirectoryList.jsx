@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import {editPhone} from '../actions'
+import {makeExternalPhone} from '../actions'
 
 export default class ExternalPhoneDirectoryList extends Component{
     constructor(...args){
@@ -34,6 +34,7 @@ export default class ExternalPhoneDirectoryList extends Component{
     }
     onAfterSaveCell(row, cellName, cellValue) {
         console.log('toda mi fila es ',row)
+        makeExternalPhone(row.phone, row.name)
         // editPhone(row)
     }
     onBeforeSaveCell(row, cellName, cellValue) {
@@ -61,7 +62,7 @@ export default class ExternalPhoneDirectoryList extends Component{
                 cellEdit={ cellEditProp }
             >
                 <TableHeaderColumn dataField='id' isKey hidden>#</TableHeaderColumn>
-                <TableHeaderColumn dataField='phone' dataSort={ true } dataAlign='center' width='120'>Number</TableHeaderColumn>
+                <TableHeaderColumn dataField='phone' dataSort={ true } editable={false} dataAlign='center' width='120'>Number</TableHeaderColumn>
                 <TableHeaderColumn dataField='name' dataSort={ true } dataAlign='right'>Phone Name</TableHeaderColumn>
             </BootstrapTable>
             )

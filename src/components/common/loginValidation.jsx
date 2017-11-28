@@ -3,7 +3,6 @@ import lodash from 'lodash';
 
 export default function validateLoginForm(data){
   let errors = {};
-  console.log('la data que se recibe es',data);
   if(Validator.isEmpty(data.username)){
     errors.username = 'This field is required';
   }

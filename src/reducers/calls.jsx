@@ -1,20 +1,20 @@
 import {
-    LAST_CALLS, NEW_CALL, PHONE_DIRECTORY,
-    CALLS_BY_EXT, CALLS_BY_DATE, CALLS_BY_NAME
+    LAST_CALLS, NEW_CALL, PHONE_DIRECTORY, EXTERNAL_PHONE_DIRECTORY,
+    MAKE_EXTERNAL_PHONE, CALLS_BY_EXT, CALLS_BY_DATE, CALLS_BY_NAME
 } from '../actions';
 
 const initialState = {
     calls: [],
     phonedirectory: [],
-    callsSearched: []
+    externalphonedirectory: [],
+    callsSearched: [],
+    externalphonedefined: {}
 };
 const calls = (state = initialState, action) => {
     // console.log('**state',state)
     // console.log('**action',action)
     switch(action.type){
         case NEW_CALL:
-            // console.log('new call', action.call);
-            // console.log('directory', action.phonedirectory);
             return Object.assign({},state,{
                 calls: [
                     ...state.calls,
@@ -23,51 +23,65 @@ const calls = (state = initialState, action) => {
                     }
                 ],
                 phonedirectory: state.phonedirectory,
-                callsSearched: state.callsSearched
+                externalphonedirectory: state.externalphonedirectory,
+                callsSearched: state.callsSearched,
+                externalphonedefined: state.externalphonedefined
             });
         case LAST_CALLS:
-            // console.log('action.payload:',action.payload)
-            /*console.log('LAST_CALLS estoy regresando',Object.assign({},state,{
-                calls: action.calls,
-                phonedirectory: state.phonedirectory
-            }))*/
             return Object.assign({},state,{
                 calls: action.payload,
                 phonedirectory: state.phonedirectory,
-                callsSearched: state.callsSearched
+                externalphonedirectory: state.externalphonedirectory,
+                callsSearched: state.callsSearched,
+                externalphonedefined: state.externalphonedefined
             });
         case PHONE_DIRECTORY:
-            /*console.log('PHONE_DIRECTORY estoy regresando',Object.assign({},state,{
-                calls: state.calls,
-                phonedirectory: action.payload
-            }))*/
             return Object.assign({},state,{
                 calls: state.calls,
                 phonedirectory: action.payload,
-                callsSearched: state.callsSearched
+                externalphonedirectory: state.externalphonedirectory,
+                callsSearched: state.callsSearched,
+                externalphonedefined: state.externalphonedefined
             })
-        case CALLS_BY_EXT:
-            /*console.log('CALLS_BY_EXT',Object.assign({},state,{
-                calls: state.calls,
-                phonedirectory: state.phonedirectory,
-                callsSearched: action.payload,
-            }))*/
+        case EXTERNAL_PHONE_DIRECTORY:
             return Object.assign({},state,{
                 calls: state.calls,
                 phonedirectory: state.phonedirectory,
+                externalphonedirectory: action.payload,
+                callsSearched: state.callsSearched,
+                externalphonedefined: state.externalphonedefined
+            })
+        case MAKE_EXTERNAL_PHONE:
+            return Object.assign({},state,{
+                calls: state.calls,
+                phonedirectory: state.phonedirectory,
+                externalphonedirectory: state.externalphonedirectory,
+                callsSearched: state.callsSearched,
+                externalphonedefined: action.payload
+            })
+        case CALLS_BY_EXT:
+            return Object.assign({},state,{
+                calls: state.calls,
+                phonedirectory: state.phonedirectory,
+                externalphonedirectory: state.externalphonedirectory,
                 callsSearched: action.payload,
+                externalphonedefined: state.externalphonedefined
             })
         case CALLS_BY_DATE:
             return Object.assign({},state,{
                 calls: state.calls,
                 phonedirectory: state.phonedirectory,
+                externalphonedirectory: state.externalphonedirectory,
                 callsSearched: action.payload,
+                externalphonedefined: state.externalphonedefined
             })
         case CALLS_BY_NAME:
             return Object.assign({},state,{
                 calls: state.calls,
                 phonedirectory: state.phonedirectory,
+                externalphonedirectory: state.externalphonedirectory,
                 callsSearched: action.payload,
+                externalphonedefined: state.externalphonedefined
             })
         default:
             return state;

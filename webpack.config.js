@@ -152,6 +152,8 @@ function devServer(){
                     '/calls/**',
                     '/scpost/**',
                     '/updatephone/**',
+                    '/makeexternalphone/**',
+                    '/searchexternalcall/**',
                     '/authuser/**'
                 ],
                 target: 'http://172.24.10.3:8080',

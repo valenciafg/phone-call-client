@@ -9,6 +9,8 @@ export const CALLS_BY_EXT = 'CALLS_BY_EXT'
 export const CALLS_BY_DATE = 'CALLS_BY_DATE'
 export const CALLS_BY_NAME = 'CALLS_BY_NAME'
 export const PHONE_DIRECTORY = 'PHONE_DIRECTORY'
+export const EXTERNAL_PHONE_DIRECTORY = 'EXTERNAL_PHONE_DIRECTORY'
+export const MAKE_EXTERNAL_PHONE = 'MAKE_EXTERNAL_PHONE'
 export const MAIN_HOST = (process.env.NODE_ENV == 'development'?'http://localhost:8081/':'http://172.24.10.3:8081/')
 function createCallObject(data){
     let calls = data.map((info)=>{
@@ -17,12 +19,14 @@ function createCallObject(data){
         let callDuration = Moment(info.PhoneCallDuration).format('mm:ss:SS')
         let CallDate = Moment(info.CallDate).format('DD-MM-YYYY')
         let CallDateUnix = Moment(info.CallDate).unix()
+        let dialedPhoneName = info.DestinationName == null ? '' : info.DestinationName
         return {
             call: {
                 ext: info.PhoneExtension,
                 cnn: info.CostCenterName,
                 trfSub: info.TrfSub,
                 dialedPhone: info.PhoneDestination,
+                dialedPhoneName: dialedPhoneName,
                 callTime: callTime,
                 callDuration: callDuration,
                 cost: info.RegisteredCost,
@@ -53,7 +57,7 @@ function createPhoneDirectoryObject(data){
 export function getCalls(){
     return(dispatch,getState)=>{
         let original_state = getState()
-        console.log(original_state)
+        // console.log('getCalls action', original_state)
         dispatch({
             calls:original_state.calls
         })
@@ -61,7 +65,7 @@ export function getCalls(){
 }
 
 export function getLastCalls(){
-    return(dispatch,getState)=>{
+    return(dispatch, getState)=>{
         // let original_state = getState()        
         let apiURL = (process.env.NODE_ENV == 'development'?'/lastcalls/':MAIN_HOST+'lastcalls/')
         //console.log('mi api url es ',apiURL)
@@ -71,7 +75,6 @@ export function getLastCalls(){
             let last_calls = createCallObject(response.data)
             dispatch({
                 type: LAST_CALLS,
-                // phonedirectory: original_state.phonedirectory,
                 payload: last_calls
             })
         })
@@ -106,7 +109,7 @@ export function getExternalPhoneDirectory(){
         .then((response)=>{
             let phonedirectory = createPhoneDirectoryObject(response.data)
             dispatch({
-                type: PHONE_DIRECTORY,
+                type: EXTERNAL_PHONE_DIRECTORY,
                 payload: phonedirectory
             })
         })
@@ -134,7 +137,24 @@ export function searchCallsByExtension(ext){
         })
     }
 }
-
+export function searchExternalCallsByName(ext_id){
+    return(dispatch,getState)=>{
+        let apiURL = (process.env.NODE_ENV == 'development'?'/searchexternalcall/':MAIN_HOST+'searchexternalcall/')
+        axios.post(apiURL,{
+            ext_id
+        })
+        .then((response)=>{
+            let callsSearched = createCallObject(response.data)
+            dispatch({
+                type: CALLS_BY_EXT,
+                payload: callsSearched
+            })
+        })
+        .catch((error)=>{
+            console.log('Error',error)
+        })
+    }
+}
 export function searchCallsByName(name){
     return(dispatch,getState)=>{
         let apiURL = (process.env.NODE_ENV == 'development'?'/calls/':MAIN_HOST+'calls/')
@@ -142,9 +162,7 @@ export function searchCallsByName(name){
             name: name
         })
         .then((response)=>{
-            console.log('mi data es',response.data)
             let callsSearched = createCallObject(response.data.records)
-            // console.log('respuesta convertida',callsSearched)
             dispatch({
                 type: CALLS_BY_NAME,
                 payload: callsSearched
@@ -173,7 +191,6 @@ export function searchCallsByDate(start, end){
             if(!response.data.error){
                 callsSearched = createCallObject(response.data.records)
             }
-            //console.log('respuesta convertida',callsSearched)
             dispatch({
                 type: CALLS_BY_DATE,
                 payload: callsSearched
@@ -210,4 +227,23 @@ export function editPhone(data){
         .catch((error)=>{
             console.log('Error',error)
         })
+}
+
+export function makeExternalPhone(number, name){
+    let newData = {
+        number,
+        name
+    }
+    let apiURL = (process.env.NODE_ENV == 'development'?'/makeexternalphone/':MAIN_HOST+'makeexternalphone/')
+    axios.post(apiURL,newData)
+    .then((response)=>{
+        console.log('respuesta',response.data)
+        /*dispatch({
+            type: MAKE_EXTERNAL_PHONE,
+            payload: response.data
+        })*/
+    })
+    .catch((error)=>{
+        console.log('Error',error)
+    })
 }

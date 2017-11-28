@@ -21,15 +21,13 @@ require('react-select2-wrapper/css/select2.css')
 import rootReducer from './reducers';
 /* Routes */
 import routes from './routes'
-
+//Asign socket io server to listen
 let socket = io('<Server Host>');
 let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 //Middleware concat
 let middlewares = [thunk,socketIoMiddleware];
-
 // const store = applyMiddleware(...middleWares)(createStore)(reducer);
 const store = createStore(rootReducer,applyMiddleware(...middlewares));
-
 // sincronizamos el browserHistory de React Router con el Store
 const history = syncHistoryWithStore(browserHistory, store);
 

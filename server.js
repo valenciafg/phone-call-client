@@ -39,10 +39,14 @@ var options = {
 var newProxy = proxy(options);
 app.use('/lastcalls', newProxy);
 app.use('/phonedirectory', newProxy);
+app.use('/externalphonedirectory', newProxy);
 app.use('/call', newProxy);
 app.use('/calls', newProxy);
 app.use('/scpost', newProxy);
 app.use('/updatephone', newProxy);
+app.use('/makeexternalphone', newProxy);
+app.use('/searchexternalcall', newProxy);
+app.use('/authuser', newProxy);
 
 /* configure store */
 function configureStore(memoryHistory, initialState){

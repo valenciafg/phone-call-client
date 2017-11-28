@@ -5,7 +5,7 @@ import CallList from '../components/CallList';
 
 import {getLastCalls} from '../actions';
 
-class OnlineCalls extends React.Component {
+class OnlineCalls extends Component {
     constructor(...args) {
         super(...args)
     }

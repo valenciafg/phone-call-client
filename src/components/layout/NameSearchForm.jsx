@@ -40,9 +40,7 @@ class NameSearchForm extends React.Component {
     }
     cbSelect(e){
         let data = e.params.data
-        //let phoneID = data.id
         let phoneName = data.id
-        // console.log('Voy a buscar el id ',phoneID,' con el nombre ',phoneName)
         this.props.searchCallsByName(phoneName)
     }
     render(){

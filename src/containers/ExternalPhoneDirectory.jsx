@@ -16,14 +16,14 @@ class ExternalPhoneDirectory extends React.Component {
         return(
             <div>
                 <h2><i className="fa fa-address-book" aria-hidden="true"></i> External Phone Directory</h2>
-                <ExternalPhoneDirectoryList phonedirectory={this.props.phonedirectory}/>
+                <ExternalPhoneDirectoryList phonedirectory={this.props.externalphonedirectory}/>
             </div>
         )
     }
 }
 function mapStateToProps(state){
     return {
-        phonedirectory: state.calls.phonedirectory
+        externalphonedirectory: state.calls.externalphonedirectory
     }
 }
 export default connect(mapStateToProps,{getExternalPhoneDirectory})(ExternalPhoneDirectory)

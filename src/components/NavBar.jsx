@@ -40,19 +40,22 @@ class NavBar extends React.Component {
                         <LinkContainer to={{pathname: '/date'}}>
                             <MenuItem eventKey={1.4}>Date</MenuItem>
                         </LinkContainer>
+                        <LinkContainer to={{pathname: '/extname'}}>
+                            <MenuItem eventKey={1.5}>External Phone</MenuItem>
+                        </LinkContainer>
                         <MenuItem divider />
                             <MenuItem disabled>Information</MenuItem>
                         <MenuItem divider />
                         <LinkContainer to={{pathname: '/directory'}}>
-                            <MenuItem eventKey={1.5}>Phone Directory</MenuItem>
+                            <MenuItem eventKey={1.6}>Phone Directory</MenuItem>
                         </LinkContainer>
                         <LinkContainer to={{pathname: '/extdirectory'}}>
-                            <MenuItem eventKey={1.6}>External Phone Directory</MenuItem>
+                            <MenuItem eventKey={1.7}>External Phone Directory</MenuItem>
                         </LinkContainer>
                         <MenuItem divider />
                             <MenuItem disabled>Authentication</MenuItem>
                         <MenuItem divider />
-                        <MenuItem eventKey={1.7} onClick={this.logout}>Logout</MenuItem>
+                        <MenuItem eventKey={1.8} onClick={this.logout}>Logout</MenuItem>
                     </NavDropdown>
                     :
                     <NavDropdown eventKey={1} title="Calls" id="basic-nav-dropdown">

@@ -31,6 +31,7 @@ class CallSearchResult extends Component{
                     id: i,
                     ext:data.call.ext,
                     dialedPhone: data.call.dialedPhone,
+                    dialedPhoneName: data.call.dialedPhoneName,
                     callTime: data.call.callTime,
                     callDuration: data.call.callDuration,
                     callDate: data.call.callDate,

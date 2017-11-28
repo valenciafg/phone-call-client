@@ -9,18 +9,6 @@ class ExtensionSearchForm extends React.Component {
         super(...args)
         this.cbSelect = this.cbSelect.bind(this)
     }
-    createOptionsList(){
-        let directory = this.props.phonedirectory
-        if(directory!== undefined && directory.length > 0){
-            return(
-                directory.map((data,i)=>{
-                    return(<option value={data.id} key={i}>{data.phone}</option>)
-                })
-            )
-        }else{
-            return(<option value="other">...</option>)
-        }
-    }
     createOptionsData(){
         let directory = this.props.phonedirectory
         if(directory!== undefined && directory.length > 0){
@@ -42,7 +30,7 @@ class ExtensionSearchForm extends React.Component {
         let data = e.params.data
         let phoneID = data.id
         let phoneName = data.text
-        console.log('Voy a buscar el id ',phoneID,' con el nombre ',phoneName)
+        // console.log('Voy a buscar el id ',phoneID,' con el nombre ',phoneName)
         this.props.searchCallsByExtension(phoneName)
     }
     render(){
