@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import {makeExternalPhone} from '../actions'
 
-export default class ExternalPhoneDirectoryList extends Component{
+class ExternalPhoneDirectoryList extends Component{
     constructor(...args){
         super(...args)
         this.options = {
@@ -33,8 +33,9 @@ export default class ExternalPhoneDirectoryList extends Component{
         )
     }
     onAfterSaveCell(row, cellName, cellValue) {
-        console.log('toda mi fila es ',row)
+        // console.log('toda mi fila es ',row)
         makeExternalPhone(row.phone, row.name)
+        // getExternalPhoneDirectory()
         // editPhone(row)
     }
     onBeforeSaveCell(row, cellName, cellValue) {
@@ -73,3 +74,4 @@ export default class ExternalPhoneDirectoryList extends Component{
         }
     }
 }
+export default ExternalPhoneDirectoryList

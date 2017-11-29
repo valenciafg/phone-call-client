@@ -27,7 +27,8 @@ export default class CallList extends Component{
                 let duration = new Date(data.call.callDuration).getTime()
                 let callData = {
                     id: i,
-                    ext:data.call.ext,
+                    ext: data.call.ext,
+                    extName: data.call.extName,
                     dialedPhone: data.call.dialedPhone,
                     dialedPhoneName: data.call.dialedPhoneName,
                     callTime: data.call.callTime,

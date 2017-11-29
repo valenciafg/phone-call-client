@@ -12,30 +12,41 @@ export const PHONE_DIRECTORY = 'PHONE_DIRECTORY'
 export const EXTERNAL_PHONE_DIRECTORY = 'EXTERNAL_PHONE_DIRECTORY'
 export const MAKE_EXTERNAL_PHONE = 'MAKE_EXTERNAL_PHONE'
 export const MAIN_HOST = (process.env.NODE_ENV == 'development'?'http://localhost:8081/':'http://172.24.10.3:8081/')
+function timeToString(dateFormat){
+    if(typeof(dateFormat) != 'undefined'){
+        let newTime = dateFormat.substr(dateFormat.indexOf('T')+1)
+        newTime = newTime.substr(0, newTime.indexOf('.'))
+        return newTime
+    }else{
+        return ''
+    }
+}
 function createCallObject(data){
     let calls = data.map((info)=>{
-        // console.log('info dentro de createCallObject',info)
-        let callTime = Moment(info.PhoneCallStartTime).format('HH:mm:ss')
-        let callDuration = Moment(info.PhoneCallDuration).format('mm:ss:SS')
-        let CallDate = Moment(info.CallDate).format('DD-MM-YYYY')
-        let CallDateUnix = Moment(info.CallDate).unix()
+        // console.log('info dentro de createCallObject',typeof(info.MyExtPhoneName) != 'undefined')
+        const extName = (typeof(info.MyExtPhoneName) != 'undefined' ? info.MyExtPhoneName : '')
+        let callTime = timeToString(info.MyStartTime)
+        let callDuration = Moment(info.PhoneCallDuration).format('mm:ss')
+        let callDate = Moment(info.CallDate).format('DD-MM-YYYY')
+        let callDateUnix = Moment(info.CallDate).unix()
         let dialedPhoneName = info.DestinationName == null ? '' : info.DestinationName
         return {
             call: {
                 ext: info.PhoneExtension,
+                extName,
                 cnn: info.CostCenterName,
                 trfSub: info.TrfSub,
                 dialedPhone: info.PhoneDestination,
-                dialedPhoneName: dialedPhoneName,
-                callTime: callTime,
-                callDuration: callDuration,
+                dialedPhoneName,
+                callTime,
+                callDuration,
                 cost: info.RegisteredCost,
                 pni: info.BusinessCodeNumber,
                 commType1: info.CommunicationType,
                 commType2: info.CommunicationTypeTwo,
                 callType: info.CallType,
-                callDate: CallDate,
-                callDateUnix: CallDateUnix
+                callDate,
+                callDateUnix
             }
         }
     })
@@ -126,6 +137,7 @@ export function searchCallsByExtension(ext){
             ext: ext
         })
         .then((response)=>{
+            console.log('my resp', response.data)
             let callsSearched = createCallObject(response.data)
             dispatch({
                 type: CALLS_BY_EXT,
@@ -145,6 +157,7 @@ export function searchExternalCallsByName(ext_id){
         })
         .then((response)=>{
             let callsSearched = createCallObject(response.data)
+            // console.log('my respxx', callsSearched) 
             dispatch({
                 type: CALLS_BY_EXT,
                 payload: callsSearched
@@ -234,6 +247,7 @@ export function makeExternalPhone(number, name){
         number,
         name
     }
+    // console.log('voy a enviar', newData)
     let apiURL = (process.env.NODE_ENV == 'development'?'/makeexternalphone/':MAIN_HOST+'makeexternalphone/')
     axios.post(apiURL,newData)
     .then((response)=>{

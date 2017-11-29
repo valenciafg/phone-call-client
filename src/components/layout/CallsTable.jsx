@@ -41,10 +41,11 @@ export default class CallsTable extends Component{
             >
                 <TableHeaderColumn dataField='id' isKey width='80' editable={false} hidden>#</TableHeaderColumn>
                 <TableHeaderColumn dataField='ext' dataSort={ true } editable={false} dataAlign='center' width='120'>Extension</TableHeaderColumn>
-                <TableHeaderColumn dataField='dialedPhone' dataSort={ true } editable={false} dataAlign='right' width='180'>Called Number</TableHeaderColumn>
-                <TableHeaderColumn dataField='dialedPhoneName' dataSort={ true } dataAlign='right' width='180'>Called Number Name</TableHeaderColumn>
-                <TableHeaderColumn dataField='callTime' dataSort={ true } editable={false} dataAlign='right' width='150'>Start Time</TableHeaderColumn>
-                <TableHeaderColumn dataField='callDuration' dataAlign='right' editable={false} width='200'>Duration (Min:Sec.MS)</TableHeaderColumn>
+                <TableHeaderColumn dataField='extName' dataSort={ true } editable={false} dataAlign='center' width='180'>Extension Name</TableHeaderColumn>
+                <TableHeaderColumn dataField='dialedPhone' dataSort={ true } editable={false} dataAlign='right' width='120'>Called Number</TableHeaderColumn>
+                <TableHeaderColumn dataField='dialedPhoneName' dataSort={ true } dataAlign='right' width='140'>Called Number Name</TableHeaderColumn>
+                <TableHeaderColumn dataField='callTime' dataSort={ true } editable={false} dataAlign='right' width='120'>Start Time (Hour:Min)</TableHeaderColumn>
+                <TableHeaderColumn dataField='callDuration' dataAlign='right' editable={false} width='100'>Duration (Min:Sec)</TableHeaderColumn>
                 <TableHeaderColumn dataField='callDate' dataSort={ true } editable={false} dataAlign='right' width='150'>Date</TableHeaderColumn>
                 <TableHeaderColumn dataField='callDateUnix' dataSort={ true } hidden>Date Unix</TableHeaderColumn>
             </BootstrapTable>
