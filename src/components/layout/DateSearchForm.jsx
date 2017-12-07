@@ -66,7 +66,7 @@ class DateSearchForm extends React.Component {
 }
 function mapStateToProps(state){
     return {
-        callsSearched: state.calls.callsSearched
+        moreCalledPhones: state.calls.moreCalledPhones
     }
 }
 export default connect(mapStateToProps,{searchCallsByDate})(DateSearchForm)

@@ -11,8 +11,10 @@ export const CALLS_BY_NAME = 'CALLS_BY_NAME'
 export const PHONE_DIRECTORY = 'PHONE_DIRECTORY'
 export const EXTERNAL_PHONE_DIRECTORY = 'EXTERNAL_PHONE_DIRECTORY'
 export const MAKE_EXTERNAL_PHONE = 'MAKE_EXTERNAL_PHONE'
+export const MORE_CALLED_PHONES = 'MORE_CALLED_PHONES'
+export const MORE_DURATION_CALLS = 'MORE_DURATION_CALLS'
 export const MAIN_HOST = (process.env.NODE_ENV == 'development'?'http://localhost:8081/':'http://172.24.10.3:8081/')
-function timeToString(dateFormat){
+export function timeToString(dateFormat){
     if(typeof(dateFormat) != 'undefined'){
         let newTime = dateFormat.substr(dateFormat.indexOf('T')+1)
         newTime = newTime.substr(0, newTime.indexOf('.'))
@@ -149,15 +151,12 @@ export function searchCallsByExtension(ext){
         })
     }
 }
-export function searchExternalCallsByName(ext_id){
+export function searchExternalCallsByName(data){
     return(dispatch,getState)=>{
         let apiURL = (process.env.NODE_ENV == 'development'?'/searchexternalcall/':MAIN_HOST+'searchexternalcall/')
-        axios.post(apiURL,{
-            ext_id
-        })
+        axios.post(apiURL, data)
         .then((response)=>{
             let callsSearched = createCallObject(response.data)
-            // console.log('my respxx', callsSearched) 
             dispatch({
                 type: CALLS_BY_EXT,
                 payload: callsSearched
@@ -213,6 +212,39 @@ export function searchCallsByDate(start, end){
             console.log('Error',error)
         })
     }
+}
+
+export function getMoreCalledPhone(data = {}){
+    return(dispatch,getState)=>{
+        let apiURL = (process.env.NODE_ENV == 'development'?'/mcphone/':MAIN_HOST+'mcphone/')
+        axios.post(apiURL, data)
+        .then((response)=>{
+            dispatch({
+                type: MORE_CALLED_PHONES,
+                payload: response.data.records
+            })
+        })
+        .catch((error)=>{
+            console.log('Error',error)
+        })
+    } 
+}
+
+export function getMoreDurationCalls(data = {}){
+    return(dispatch,getState)=>{
+        let apiURL = (process.env.NODE_ENV == 'development'?'/topdurationcalls/':MAIN_HOST+'topdurationcalls/')
+        axios.post(apiURL, data)
+        .then((response)=>{
+            console.log(response.data)
+            dispatch({
+                type: MORE_DURATION_CALLS,
+                payload: response.data.records
+            })
+        })
+        .catch((error)=>{
+            console.log('Error',error)
+        })
+    } 
 }
 
 export function editPhone(data){

@@ -93,7 +93,7 @@ function entry(){
     }
     return [
         path.join(__dirname, '/src/index.jsx'),
-        'webpack-dev-server/client?http://localhost:8081',
+        'webpack-dev-server/client?http://0.0.0.0:8080',
         'webpack/hot/only-dev-server'
     ]
 }
@@ -132,6 +132,8 @@ function plugins(){
 
 function devServer(){
     return {
+        host: '0.0.0.0', 
+        port: 8080,
         hot:true,
         contentBase: './public',//Serve files on this folder
         stats: 'errors-only',//Doesn't show build messages
@@ -154,6 +156,8 @@ function devServer(){
                     '/updatephone/**',
                     '/makeexternalphone/**',
                     '/searchexternalcall/**',
+                    '/mcphone/**',
+                    '/topdurationcalls/**',
                     '/authuser/**'
                 ],
                 target: 'http://172.24.10.3:8080',

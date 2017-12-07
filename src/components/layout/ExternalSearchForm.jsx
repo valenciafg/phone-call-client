@@ -29,7 +29,10 @@ class ExternalSearchForm extends React.Component {
     cbSelect(e){
         let data = e.params.data
         let phoneID = data.id
-        this.props.searchExternalCallsByName(phoneID)
+        const params = {
+            ext_id: phoneID
+        }
+        this.props.searchExternalCallsByName(params)
     }
     render(){
         return (
