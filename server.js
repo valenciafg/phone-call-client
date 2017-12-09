@@ -13,8 +13,6 @@ import routes from './src/routes'
 import reducer from './src/reducers'
 var cors = require('cors');
 var proxy = require('http-proxy-middleware');
-//var proxy = require('express-http-proxy');
-//var httpProxy = require('http-proxy');
 /* SocketIO connection */
 let socket = io('http://172.24.10.3:8080/');
 let socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
@@ -46,6 +44,8 @@ app.use('/scpost', newProxy);
 app.use('/updatephone', newProxy);
 app.use('/makeexternalphone', newProxy);
 app.use('/searchexternalcall', newProxy);
+app.use('/mcphone', newProxy);
+app.use('/topdurationcalls', newProxy);
 app.use('/authuser', newProxy);
 
 /* configure store */

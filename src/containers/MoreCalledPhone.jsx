@@ -14,7 +14,7 @@ class MoreCalledPhone extends Component {
     render(){
         return(
           <div>
-            <h2>More Called Phones</h2>
+            <h2>Top Most Called Phones</h2>
             <MoreCalledPhoneForm/>
             <br/>
             <MoreCalledPhoneResult/>

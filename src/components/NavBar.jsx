@@ -53,7 +53,7 @@ class NavBar extends React.Component {
                             <MenuItem eventKey={1.7}>External Phone Directory</MenuItem>
                         </LinkContainer>
                         <LinkContainer to={{pathname: '/mcphone'}}>
-                            <MenuItem eventKey={1.8}>More Called Phone</MenuItem>
+                            <MenuItem eventKey={1.8}>Top Most Called Phones</MenuItem>
                         </LinkContainer>
                         <LinkContainer to={{pathname: '/topdurationcalls'}}>
                             <MenuItem eventKey={1.8}>Top Duration Calls</MenuItem>
