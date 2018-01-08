@@ -1,4 +1,5 @@
 import express from 'express'
+import opener from 'opener'
 import serialize from 'serialize-javascript'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -105,3 +106,5 @@ app.listen(8081, function (err) {
     if (err) { console.log(err); return; }
     console.log('Server listening on http://localhost:8081, Ctrl+C to stop')
 })
+
+opener("http://localhost:8081")
